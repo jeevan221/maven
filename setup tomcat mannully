@@ -1,0 +1,46 @@
+tom cat download
+
+wget https://dlcdn.apache.org/tomcat/tomcat-9/v9.0.97/bin/apache-tomcat-9.0.97.tar.gz
+tar -xvf apache-tomcat-9.0.97.tar.gz
+cd apache-tomcat-9.0.97/bin
+./startup.sh 
+
+tomcat setup on another port 
+cd apache-tomcat-9.0.97/conf/
+vi server.xml
+ "connector port=8080" ----> press "i" ----> Change the port no to 9090 instead of 8080 ----> escape ----> :wq
+
+re start the tom cat by 
+./shutdown 
+./startup.sh
+
+ we can access only the Home page of Tomcat.
+cd apache-tomcat-9.0.73/webapps/manager/META-INF/
+vi context.xml
+You will see a "valve" tag. You have to edit "Allow" tag ----> ".*" />
+
+Configuring the Users in Tomcat
+cd apache-tomcat-9.0.97/conf/
+vi the tomcat-users.xml
+<role rolename="manager-gui" />
+<user username="tomcat" password="tomcat" roles="manager-gui" />
+<role rolename="admin-gui" />  
+<user username="admin" password="admin" roles="manager-gui,admin-gui"/>
+cd bin
+./shutdown.sh
+./startup.sh
+
+ Adding the manager-script role in tomcat-users.xml file
+ cd apache-tomcat-9.0.97/conf/
+vi the tomcat-users.xml
+edit this:-
+<role rolename="manager-gui" />
+<user username="tomcat" password="tomcat" roles="manager-gui" />
+<role rolename="admin-gui" />
+<role rolename="manager-script" />
+<user username="admin" password="admin" roles="manager-gui,admin-gui,manager-script"/>
+now do this :
+cd bin
+./shutdown.sh
+./startup.sh
+
